@@ -8,6 +8,11 @@ public class Duke {
     static int numberStoredTasks = 0;
     static boolean dukeActive = false;
 
+    static final String COMMAND_EXIT = "bye";
+    static final String COMMAND_LIST_STORED_TASKS = "list";
+    static final String COMMAND_SET_TASK_DONE = "done";
+    static final String COMMAND_ADD_TASK = "task";
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
@@ -18,32 +23,49 @@ public class Duke {
         String userInput;
         while (dukeActive){
             userInput = in.nextLine();
-            if (userInput.length() == 0){
+            if (!(dukeCheckInput(userInput))){
                 continue;
             }
-            if (userInput.equals("bye")){
+            dukeBeforeActionResponse(userInput);
+            switch (userInput) {
+            case COMMAND_EXIT:
                 dukeStop();
-            }
-            else if (userInput.equals("list")){
+                break;
+            case COMMAND_LIST_STORED_TASKS:
                 dukeReadStoredTasks();
-            }
-            else if (userInput.equals("done")){
+                break;
+            case COMMAND_SET_TASK_DONE:
                 dukeReadStoredTasks();
-                System.out.println("Please enter the number of the task you wish to mark as done:");
-                String taskName = in.nextLine();
-                dukeSetDone(Integer.parseInt(taskName);
-                System.out.println("Added task: " + taskName);
-            }
-            else if (userInput.equals("task")){
-                System.out.println("Please enter the task you wish you add:");
+                dukeSetDone(Integer.parseInt(in.nextLine()));
+                break;
+            case COMMAND_ADD_TASK:
                 dukeAddTask(in.nextLine());
-            }
-            else{
+                break;
+            default:
                 dukePrintInstructions();
+                break;
             }
+
         }
         dukeGoodBye();
     }
+
+    /* ##################################
+     * ------- List of duke functions -----------
+     * dukeStart
+     * dukeStop
+     * dukeBeforeActionResponse
+     * dukeCheckInput
+     * dukePrintInstructions
+     * dukeAddTask
+     * dukeGreet
+     * dukeGoodBye
+     * dukeEcho
+     * dukeReadStoredTasks
+     * dukeSetDone
+     ###################################
+     */
+
     private static void dukeStart(){
         dukeActive = true;
     }
@@ -51,20 +73,45 @@ public class Duke {
         dukeActive = false;
     }
 
+    private static void dukeBeforeActionResponse(String inputCommand){
+        switch (inputCommand) {
+        case COMMAND_EXIT:
+            break;
+        case COMMAND_LIST_STORED_TASKS:
+            break;
+        case COMMAND_SET_TASK_DONE:
+            System.out.println("Please enter the number of the task you wish to mark as done:");
+            break;
+        case COMMAND_ADD_TASK:
+            System.out.println("Please enter the task you wish you add:");
+            break;
+        default:
+            break;
+        }
+    }
+
+    private static boolean dukeCheckInput(String userInput){
+        boolean isValid = true;
+        if (userInput.length() == 0){
+            isValid = false;
+        }
+        return isValid;
+    }
     private static void dukePrintInstructions(){
         System.out.print("Here is NOT how you should ever use me\n" +
-                "------ List of commands -------\n" +
-                "bye: this will exit the programme\n" +
-                "list: List out the set of tasks stored\n" +
-                "done #(task number): set the task with the provided task number to done\n\n" +
-                "Any other input will be added as a task\n" +
+                "-------- List of commands -------\n" +
+                COMMAND_EXIT + ": this will exit the programme\n" +
+                COMMAND_LIST_STORED_TASKS+ ": List out the set of tasks stored\n" +
+                COMMAND_SET_TASK_DONE + ": set the task with a provided task number to done\n\n" +
+                COMMAND_ADD_TASK + ": Adds a new undone task to the list\n" +
                 "GOT IT????\n"
         );
     }
 
-    private static void dukeAddTask(String userInput) {
-        storedUserTasks[numberStoredTasks] = new Task(userInput);
+    private static void dukeAddTask(String taskName) {
+        storedUserTasks[numberStoredTasks] = new Task(taskName);
         numberStoredTasks++;
+        System.out.println("Added task: " + taskName);
     }
 
     /**
@@ -72,12 +119,7 @@ public class Duke {
      *
      * @param length the length of horizontal line
      */
-    public static void printHorizontalLine(int length){
-        for (int i = 0; i < length; i++){
-            System.out.print("_");
-        }
-        System.out.print("\n");
-    }
+
 
     /**
      * prints a greeting to the user
@@ -134,5 +176,15 @@ public class Duke {
         System.out.println("Does the completion of such mundane tasks elicit joy in you?");
         System.out.println("Or does the emptiness that ensues it's completion fill you with regret?");
         System.out.println(storedUserTasks[taskNumber-1]);
+    }
+
+    /*
+    ----------- Second level of abstraction ------------------
+     */
+    public static void printHorizontalLine(int length){
+        for (int i = 0; i < length; i++){
+            System.out.print("_");
+        }
+        System.out.print("\n");
     }
 }
