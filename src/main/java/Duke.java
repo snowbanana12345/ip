@@ -27,13 +27,19 @@ public class Duke {
             else if (userInput.equals("list")){
                 dukeReadStoredTasks();
             }
-            else if (userInput.substring(0,4).equals("done")){
-                int taskNumber = Integer.parseInt(userInput.split(" ")[1]);
-                dukeSetDone(taskNumber);
+            else if (userInput.equals("done")){
+                dukeReadStoredTasks();
+                System.out.println("Please enter the number of the task you wish to mark as done:");
+                String taskName = in.nextLine();
+                dukeSetDone(Integer.parseInt(taskName);
+                System.out.println("Added task: " + taskName);
             }
-            else {
-                dukeEcho(userInput);
-                dukeAddTask(userInput);
+            else if (userInput.equals("task")){
+                System.out.println("Please enter the task you wish you add:");
+                dukeAddTask(in.nextLine());
+            }
+            else{
+                dukePrintInstructions();
             }
         }
         dukeGoodBye();
@@ -52,7 +58,7 @@ public class Duke {
                 "list: List out the set of tasks stored\n" +
                 "done #(task number): set the task with the provided task number to done\n\n" +
                 "Any other input will be added as a task\n" +
-                "GOT IT????"
+                "GOT IT????\n"
         );
     }
 

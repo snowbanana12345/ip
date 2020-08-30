@@ -11,6 +11,6 @@ public class Task{
     }
 
     public String toString(){
-        return ((this.done) ? "[" + "\u2713"+"]" : "[" + "\u1003" + "]") + " " + this.task;
+        return ((this.done) ? "[" + "\u2713"+"]" : "[" + "\u2717" + "]") + " " + this.task;
     }
 }
