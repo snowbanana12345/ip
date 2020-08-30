@@ -1,13 +1,17 @@
 public class Task{
     private final String task;
     private boolean done;
-    public Task(String task){
+    protected Task(String task){
         this.task = task;
         this.done = false;
     }
 
-    public void done(){
-        this.done = true;
+    public boolean isDone() {
+        return this.done;
+    }
+
+    public void setDone(boolean isdone) {
+        this.done = isdone;
     }
 
     public String toString(){

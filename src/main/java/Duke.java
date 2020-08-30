@@ -11,7 +11,9 @@ public class Duke {
     static final String COMMAND_EXIT = "bye";
     static final String COMMAND_LIST_STORED_TASKS = "list";
     static final String COMMAND_SET_TASK_DONE = "done";
-    static final String COMMAND_ADD_TASK = "task";
+    static final String COMMAND_ADD_TODO = "todo";
+    static final String COMMAND_ADD_DEADLINE = "deadline";
+    static final String COMMAND_ADD_EVENT = "event";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -26,8 +28,9 @@ public class Duke {
             if (!(dukeCheckInput(userInput))){
                 continue;
             }
-            dukeBeforeActionResponse(userInput);
-            switch (userInput) {
+            String[] userInputs = userInput.split(" ");
+            String userCommand = userInputs[0];
+            switch (userCommand) {
             case COMMAND_EXIT:
                 dukeStop();
                 break;
@@ -35,11 +38,16 @@ public class Duke {
                 dukeReadStoredTasks();
                 break;
             case COMMAND_SET_TASK_DONE:
-                dukeReadStoredTasks();
-                dukeSetDone(Integer.parseInt(in.nextLine()));
+                dukeSetDone(userInputs);
                 break;
-            case COMMAND_ADD_TASK:
-                dukeAddTask(in.nextLine());
+            case COMMAND_ADD_TODO:
+                dukeAddToDo(userInputs);
+                break;
+            case COMMAND_ADD_DEADLINE:
+                dukeAddDeadLine(userInputs);
+                break;
+            case COMMAND_ADD_EVENT:
+                dukeAddEvent(userInputs);
                 break;
             default:
                 dukePrintInstructions();
@@ -72,7 +80,7 @@ public class Duke {
     private static void dukeStop(){
         dukeActive = false;
     }
-
+/*
     private static void dukeBeforeActionResponse(String inputCommand){
         switch (inputCommand) {
         case COMMAND_EXIT:
@@ -82,14 +90,14 @@ public class Duke {
         case COMMAND_SET_TASK_DONE:
             System.out.println("Please enter the number of the task you wish to mark as done:");
             break;
-        case COMMAND_ADD_TASK:
+        case COMMAND_ADD_TODO:
             System.out.println("Please enter the task you wish you add:");
             break;
         default:
             break;
         }
     }
-
+*/
     private static boolean dukeCheckInput(String userInput){
         boolean isValid = true;
         if (userInput.length() == 0){
@@ -102,24 +110,31 @@ public class Duke {
                 "-------- List of commands -------\n" +
                 COMMAND_EXIT + ": this will exit the programme\n" +
                 COMMAND_LIST_STORED_TASKS+ ": List out the set of tasks stored\n" +
-                COMMAND_SET_TASK_DONE + ": set the task with a provided task number to done\n\n" +
-                COMMAND_ADD_TASK + ": Adds a new undone task to the list\n" +
+                COMMAND_SET_TASK_DONE + ": set the task with a provided task number to done\n" +
+                COMMAND_ADD_TODO + ": Adds a new undone todo to the list\n" +
+                COMMAND_ADD_DEADLINE +"Adds a new undone deadline to the list\n" +
+                COMMAND_ADD_EVENT + "Adds a new undone event to the list\n" +
                 "GOT IT????\n"
         );
     }
 
-    private static void dukeAddTask(String taskName) {
-        storedUserTasks[numberStoredTasks] = new Task(taskName);
-        numberStoredTasks++;
-        System.out.println("Added task: " + taskName);
+    private static void dukeAddToDo(String[] userInputs){
+        ToDo new_task = createToDo(userInputs);
+        addTask(new_task);
+        printAddTaskMessage(new_task);
     }
 
-    /**
-     * prints a horizontal line with the specified length
-     *
-     * @param length the length of horizontal line
-     */
+    private static void dukeAddDeadLine(String[] userInputs){
+        DeadLine new_task = createDeadLine(userInputs);
+        addTask(new_task);
+        printAddTaskMessage(new_task);
+    }
 
+    private static void dukeAddEvent(String[] userInputs){
+        Event new_task = createEvent(userInputs);
+        addTask(new_task);
+        printAddTaskMessage(new_task);
+    }
 
     /**
      * prints a greeting to the user
@@ -163,20 +178,16 @@ public class Duke {
         printHorizontalLine(50);
     }
 
-    /**
-     * ask duke to set a certain task to be done. duke will complain if you don't provide a valid task number!
-     * @param taskNumber the task number of the task in order the task was given to duke e.g. 10th task is 10
-     */
-    public static void dukeSetDone(int taskNumber){
-        if (taskNumber > numberStoredTasks || taskNumber <= 0){
-            System.out.println("Are you stupid? There is no such Task");
+
+    public static void dukeSetDone(String[] userInputs){
+        int taskNumber = Integer.parseInt(userInputs[1]);
+        if (!(isValidTaskNumber(taskNumber))){
             return;
         }
-        storedUserTasks[taskNumber-1].done();
-        System.out.println("Does the completion of such mundane tasks elicit joy in you?");
-        System.out.println("Or does the emptiness that ensues it's completion fill you with regret?");
-        System.out.println(storedUserTasks[taskNumber-1]);
+        setUserTaskToDone(storedUserTasks[taskNumber - 1]);
+        printSetDoneMessage(storedUserTasks[taskNumber - 1]);
     }
+
 
     /*
     ----------- Second level of abstraction ------------------
@@ -186,5 +197,85 @@ public class Duke {
             System.out.print("_");
         }
         System.out.print("\n");
+    }
+
+
+    private static void printAddTaskMessage(Task new_task) {
+        printHorizontalLine(50);
+        System.out.println("Got it. i've added this task\n  " + new_task);
+        System.out.println("Now you have " + numberStoredTasks + " tasks in the list.");
+        printHorizontalLine(50);
+    }
+
+    private static void printSetDoneMessage(Task storedUserTask) {
+        printHorizontalLine(50);
+        System.out.println("Does the completion of such mundane tasks elicit joy in you?");
+        System.out.println("Or does the emptiness that ensues it's completion fill you with regret?");
+        System.out.println(storedUserTask);
+        printHorizontalLine(50);
+    }
+
+
+    private static void addTask(Task new_task) {
+        storedUserTasks[numberStoredTasks] = new_task;
+        numberStoredTasks++;
+    }
+
+    private static Event createEvent(String[] userInputs) {
+        StringBuilder taskName = new StringBuilder();
+        StringBuilder at = new StringBuilder();
+        boolean isBuildingName = true;
+        for (int i = 1; i < userInputs.length; i++){
+            if (userInputs[i].equals("/at")){
+                isBuildingName = false;
+                continue;
+            }
+            if (isBuildingName) {
+                taskName.append(userInputs[i]).append(" ");
+            }
+            else{
+                at.append(userInputs[i]).append(" ");
+            }
+        }
+        return new Event(taskName.toString(), at.toString());
+    }
+
+    private static DeadLine createDeadLine(String[] userInputs) {
+        StringBuilder taskName = new StringBuilder();
+        StringBuilder by = new StringBuilder();
+        boolean isBuildingName = true;
+        for (int i = 1; i < userInputs.length; i++){
+            if (userInputs[i].equals("/by")){
+                isBuildingName = false;
+                continue;
+            }
+            if (isBuildingName) {
+                taskName.append(userInputs[i]).append(" ");
+            }
+            else{
+                by.append(userInputs[i]).append(" ");
+            }
+        }
+        return new DeadLine(taskName.toString(), by.toString());
+    }
+
+    private static ToDo createToDo(String[] userInputs) {
+        StringBuilder taskName = new StringBuilder();
+        for (int i = 1; i < userInputs.length; i++){
+            taskName.append(userInputs[i]).append(" ");
+        }
+        return new ToDo(taskName.toString());
+    }
+
+    private static void setUserTaskToDone(Task storedUserTask) {
+        storedUserTask.setDone(true);
+    }
+
+    private static boolean isValidTaskNumber(int taskNumber) {
+        boolean isValid = !(taskNumber > numberStoredTasks || taskNumber <= 0);
+        if (!(isValid)) {
+            System.out.println("Are you stupid? There is no such Task");
+        }
+        return isValid;
     }
 }
