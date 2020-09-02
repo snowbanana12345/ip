@@ -7,6 +7,7 @@ public class Duke {
     static Task[] storedUserTasks = new Task[100];
     static int numberStoredTasks = 0;
     static boolean dukeActive = false;
+    static String[] currentUserInput;
 
     static final String COMMAND_EXIT = "bye";
     static final String COMMAND_LIST_STORED_TASKS = "list";
@@ -22,15 +23,9 @@ public class Duke {
         dukeStart();
         dukePrintInstructions();
 
-        String userInput;
         while (dukeActive){
-            userInput = in.nextLine();
-            if (!(dukeCheckInput(userInput))){
-                continue;
-            }
-            String[] userInputs = userInput.split(" ");
-            String userCommand = userInputs[0];
-            switch (userCommand) {
+            dukeCollectUserInput(in);
+            switch (dukeProvideUserCommand()) {
             case COMMAND_EXIT:
                 dukeStop();
                 break;
@@ -38,16 +33,16 @@ public class Duke {
                 dukeReadStoredTasks();
                 break;
             case COMMAND_SET_TASK_DONE:
-                dukeSetDone(userInputs);
+                dukeSetDone(dukeProvideUserInput());
                 break;
             case COMMAND_ADD_TODO:
-                dukeAddToDo(userInputs);
+                dukeAddToDo(dukeProvideUserInput());
                 break;
             case COMMAND_ADD_DEADLINE:
-                dukeAddDeadLine(userInputs);
+                dukeAddDeadLine(dukeProvideUserInput());
                 break;
             case COMMAND_ADD_EVENT:
-                dukeAddEvent(userInputs);
+                dukeAddEvent(dukeProvideUserInput());
                 break;
             default:
                 dukePrintInstructions();
@@ -98,6 +93,21 @@ public class Duke {
         }
     }
 */
+    private static void dukeCollectUserInput(Scanner in){
+        String userInput = in.nextLine();
+        if (!(dukeCheckInput(userInput))){
+            currentUserInput = new String[]{""};
+            return;
+        }
+        currentUserInput = userInput.split(" ");
+    }
+    private static String[] dukeProvideUserInput(){
+        return currentUserInput;
+    }
+    private static String dukeProvideUserCommand(){
+        return currentUserInput[0];
+    }
+
     private static boolean dukeCheckInput(String userInput){
         boolean isValid = true;
         if (userInput.length() == 0){
