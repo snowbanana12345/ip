@@ -201,6 +201,9 @@ public class Duke {
         catch (ArrayIndexOutOfBoundsException e){
             throw new BadInputException("You either did not provide a number or an astronomical number");
         }
+        catch (NumberFormatException e){
+            throw new BadInputException("The task must be specificed by it's number!");
+        }
     }
 
 
