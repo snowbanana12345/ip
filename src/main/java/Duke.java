@@ -16,6 +16,7 @@ public class Duke {
     static final String COMMAND_ADD_DEADLINE = "deadline";
     static final String COMMAND_ADD_EVENT = "event";
     static final String COMMAND_INSTRUCTIONS = "instructions";
+    static final String COMMAND_NULL = "null command";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -25,34 +26,39 @@ public class Duke {
         dukePrintInstructions();
 
         while (dukeActive){
-            dukeCollectUserInput(in);
-            switch (dukeProvideUserCommand()) {
-            case COMMAND_EXIT:
-                dukeStop();
-                break;
-            case COMMAND_LIST_STORED_TASKS:
-                dukeReadStoredTasks();
-                break;
-            case COMMAND_SET_TASK_DONE:
-                dukeSetDone(dukeProvideUserInput());
-                break;
-            case COMMAND_ADD_TODO:
-                dukeAddToDo(dukeProvideUserInput());
-                break;
-            case COMMAND_ADD_DEADLINE:
-                dukeAddDeadLine(dukeProvideUserInput());
-                break;
-            case COMMAND_ADD_EVENT:
-                dukeAddEvent(dukeProvideUserInput());
-                break;
-            case COMMAND_INSTRUCTIONS:
-                dukePrintInstructions();
-                break;
-            default:
-                dukeDefaultResponse();
-                break;
+            try {
+                dukeCollectUserInput(in);
+                switch (dukeProvideUserCommand()) {
+                case COMMAND_EXIT:
+                    dukeStop();
+                    break;
+                case COMMAND_LIST_STORED_TASKS:
+                    dukeReadStoredTasks();
+                    break;
+                case COMMAND_SET_TASK_DONE:
+                    dukeSetDone(dukeProvideUserInput());
+                    break;
+                case COMMAND_ADD_TODO:
+                    dukeAddToDo(dukeProvideUserInput());
+                    break;
+                case COMMAND_ADD_DEADLINE:
+                    dukeAddDeadLine(dukeProvideUserInput());
+                    break;
+                case COMMAND_ADD_EVENT:
+                    dukeAddEvent(dukeProvideUserInput());
+                    break;
+                case COMMAND_INSTRUCTIONS:
+                    dukePrintInstructions();
+                    break;
+                default:
+                    dukeDefaultResponse();
+                    break;
+                }
             }
-
+            catch (InvalidCommandException | EmptyInputException e){
+                System.out.println(e);
+                dukeDefaultResponse();
+            }
         }
         dukeGoodBye();
     }
@@ -64,7 +70,6 @@ public class Duke {
      * dukeStart
      * dukeStop
      * dukeBeforeActionResponse
-     * dukeCheckInput
      * dukePrintInstructions
      * dukeAddTask
      * dukeGreet
@@ -86,12 +91,9 @@ public class Duke {
         System.out.println("To see the list of commands, type: " + COMMAND_INSTRUCTIONS);
     }
 
-    private static void dukeCollectUserInput(Scanner in){
+    private static void dukeCollectUserInput(Scanner in)
+    throws InvalidCommandException{
         String userInput = in.nextLine();
-        if (!(dukeCheckInput(userInput))){
-            currentUserInput = new String[]{""};
-            return;
-        }
         currentUserInput = userInput.split(" ");
     }
     private static String[] dukeProvideUserInput(){
@@ -99,14 +101,6 @@ public class Duke {
     }
     private static String dukeProvideUserCommand(){
         return currentUserInput[0];
-    }
-
-    private static boolean dukeCheckInput(String userInput){
-        boolean isValid = true;
-        if (userInput.length() == 0){
-            isValid = false;
-        }
-        return isValid;
     }
 
     private static void dukePrintInstructions(){
@@ -122,19 +116,22 @@ public class Duke {
         );
     }
 
-    private static void dukeAddToDo(String[] userInputs){
+    private static void dukeAddToDo(String[] userInputs)
+            throws EmptyInputException{
         ToDo new_task = createToDo(userInputs);
         addTask(new_task);
         printAddTaskMessage(new_task);
     }
 
-    private static void dukeAddDeadLine(String[] userInputs){
+    private static void dukeAddDeadLine(String[] userInputs)
+            throws EmptyInputException{
         DeadLine new_task = createDeadLine(userInputs);
         addTask(new_task);
         printAddTaskMessage(new_task);
     }
 
-    private static void dukeAddEvent(String[] userInputs){
+    private static void dukeAddEvent(String[] userInputs)
+            throws EmptyInputException{
         Event new_task = createEvent(userInputs);
         addTask(new_task);
         printAddTaskMessage(new_task);
@@ -225,7 +222,11 @@ public class Duke {
         numberStoredTasks++;
     }
 
-    private static Event createEvent(String[] userInputs) {
+    private static Event createEvent(String[] userInputs)
+            throws EmptyInputException{
+        if (userInputs.length <= 1){
+            throw new EmptyInputException("The description of a Event cannot be empty!");
+        }
         StringBuilder taskName = new StringBuilder();
         StringBuilder at = new StringBuilder();
         boolean isBuildingName = true;
@@ -244,7 +245,11 @@ public class Duke {
         return new Event(taskName.toString(), at.toString());
     }
 
-    private static DeadLine createDeadLine(String[] userInputs) {
+    private static DeadLine createDeadLine(String[] userInputs)
+            throws EmptyInputException{
+        if (userInputs.length <= 1){
+            throw new EmptyInputException("The description of a DeadLine cannot be empty!");
+        }
         StringBuilder taskName = new StringBuilder();
         StringBuilder by = new StringBuilder();
         boolean isBuildingName = true;
@@ -263,7 +268,11 @@ public class Duke {
         return new DeadLine(taskName.toString(), by.toString());
     }
 
-    private static ToDo createToDo(String[] userInputs) {
+    private static ToDo createToDo(String[] userInputs)
+            throws EmptyInputException{
+        if (userInputs.length <= 1){
+            throw new EmptyInputException("The description of a ToDo cannot be empty!");
+        }
         StringBuilder taskName = new StringBuilder();
         for (int i = 1; i < userInputs.length; i++){
             taskName.append(userInputs[i]).append(" ");
