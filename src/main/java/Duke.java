@@ -1,3 +1,13 @@
+import duke_command.Command;
+import duke_command.dukeCommandManager;
+import duke_exception.BadInputException;
+import duke_exception.EmptyInputException;
+import duke_exception.InvalidCommandException;
+import task.DeadLine;
+import task.Event;
+import task.Task;
+import task.ToDo;
+
 import java.util.Scanner;
 
 /**
@@ -47,7 +57,7 @@ public class Duke {
                     break;
                 }
             }
-            catch (InvalidCommandException | EmptyInputException e){
+            catch (InvalidCommandException | EmptyInputException | BadInputException e){
                 System.out.println(e);
                 dukeDefaultResponse();
             }
@@ -123,14 +133,14 @@ public class Duke {
     }
 
     private static void dukeAddDeadLine(String[] userInputs)
-            throws EmptyInputException{
+            throws EmptyInputException, BadInputException{
         DeadLine new_task = createDeadLine(userInputs);
         addTask(new_task);
         printAddTaskMessage(new_task);
     }
 
     private static void dukeAddEvent(String[] userInputs)
-            throws EmptyInputException{
+            throws EmptyInputException, BadInputException{
         Event new_task = createEvent(userInputs);
         addTask(new_task);
         printAddTaskMessage(new_task);
@@ -178,14 +188,19 @@ public class Duke {
         printHorizontalLine(50);
     }
 
-
-    public static void dukeSetDone(String[] userInputs){
-        int taskNumber = Integer.parseInt(userInputs[1]);
-        if (!(isValidTaskNumber(taskNumber))){
-            return;
+    public static void dukeSetDone(String[] userInputs)
+            throws BadInputException{
+        try {
+            int taskNumber = Integer.parseInt(userInputs[1]);
+            setUserTaskToDone(storedUserTasks[taskNumber - 1]);
+            printSetDoneMessage(storedUserTasks[taskNumber - 1]);
         }
-        setUserTaskToDone(storedUserTasks[taskNumber - 1]);
-        printSetDoneMessage(storedUserTasks[taskNumber - 1]);
+        catch (NullPointerException e){
+            throw new BadInputException("You tried to access a task that does not exist!");
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            throw new BadInputException("You either did not provide a number or an astronomical number");
+        }
     }
 
 
@@ -222,7 +237,7 @@ public class Duke {
     }
 
     private static Event createEvent(String[] userInputs)
-            throws EmptyInputException{
+            throws EmptyInputException, BadInputException{
         if (userInputs.length <= 1){
             throw new EmptyInputException("The description of a Event cannot be empty!");
         }
@@ -241,11 +256,14 @@ public class Duke {
                 at.append(userInputs[i]).append(" ");
             }
         }
+        if (at.length() == 0){
+            throw new BadInputException("Event time cannot be empty!");
+        }
         return new Event(taskName.toString(), at.toString());
     }
 
     private static DeadLine createDeadLine(String[] userInputs)
-            throws EmptyInputException{
+            throws EmptyInputException, BadInputException{
         if (userInputs.length <= 1){
             throw new EmptyInputException("The description of a DeadLine cannot be empty!");
         }
@@ -263,6 +281,9 @@ public class Duke {
             else{
                 by.append(userInputs[i]).append(" ");
             }
+        }
+        if (by.length() == 0){
+            throw new BadInputException("DeadLine due date cannot be empty!");
         }
         return new DeadLine(taskName.toString(), by.toString());
     }

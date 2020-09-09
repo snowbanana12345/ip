@@ -1,4 +1,6 @@
-public class Event extends Task{
+package task;
+
+public class Event extends Task {
     private final String at;
     public Event(String task, String at){
         super(task);

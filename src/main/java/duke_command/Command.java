@@ -1,3 +1,5 @@
+package duke_command;
+
 public enum Command {
     COMMAND_EXIT("bye", "exits the program"),
     COMMAND_LIST_STORED_TASKS("list", "list all stored tasks"),

@@ -1,6 +1,8 @@
+package duke_command;
 import java.util.Hashtable;
 
-abstract class dukeCommandManager {
+
+public abstract class dukeCommandManager {
     static Hashtable<String,Command> commandTable = new Hashtable<>();
     static {
         commandTable.put("bye",Command.COMMAND_EXIT);
