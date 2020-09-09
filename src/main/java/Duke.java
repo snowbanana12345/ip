@@ -15,6 +15,7 @@ public class Duke {
     static final String COMMAND_ADD_TODO = "todo";
     static final String COMMAND_ADD_DEADLINE = "deadline";
     static final String COMMAND_ADD_EVENT = "event";
+    static final String COMMAND_INSTRUCTIONS = "instructions";
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -44,14 +45,19 @@ public class Duke {
             case COMMAND_ADD_EVENT:
                 dukeAddEvent(dukeProvideUserInput());
                 break;
-            default:
+            case COMMAND_INSTRUCTIONS:
                 dukePrintInstructions();
+                break;
+            default:
+                dukeDefaultResponse();
                 break;
             }
 
         }
         dukeGoodBye();
     }
+
+
 
     /* ##################################
      * ------- List of duke functions -----------
@@ -75,24 +81,11 @@ public class Duke {
     private static void dukeStop(){
         dukeActive = false;
     }
-/*
-    private static void dukeBeforeActionResponse(String inputCommand){
-        switch (inputCommand) {
-        case COMMAND_EXIT:
-            break;
-        case COMMAND_LIST_STORED_TASKS:
-            break;
-        case COMMAND_SET_TASK_DONE:
-            System.out.println("Please enter the number of the task you wish to mark as done:");
-            break;
-        case COMMAND_ADD_TODO:
-            System.out.println("Please enter the task you wish you add:");
-            break;
-        default:
-            break;
-        }
+
+    private static void dukeDefaultResponse() {
+        System.out.println("To see the list of commands, type: " + COMMAND_INSTRUCTIONS);
     }
-*/
+
     private static void dukeCollectUserInput(Scanner in){
         String userInput = in.nextLine();
         if (!(dukeCheckInput(userInput))){
@@ -115,15 +108,16 @@ public class Duke {
         }
         return isValid;
     }
+
     private static void dukePrintInstructions(){
         System.out.print("Here is NOT how you should ever use me\n" +
                 "-------- List of commands -------\n" +
                 COMMAND_EXIT + ": this will exit the programme\n" +
                 COMMAND_LIST_STORED_TASKS+ ": List out the set of tasks stored\n" +
                 COMMAND_SET_TASK_DONE + ": set the task with a provided task number to done\n" +
-                COMMAND_ADD_TODO + ": Adds a new undone todo to the list\n" +
-                COMMAND_ADD_DEADLINE +"Adds a new undone deadline to the list\n" +
-                COMMAND_ADD_EVENT + "Adds a new undone event to the list\n" +
+                COMMAND_ADD_TODO + " {Name of to do} : Adds a new undone todo to the list\n" +
+                COMMAND_ADD_DEADLINE + " {Name of dead line} /by {date or time of deadline} : Adds a new undone deadline to the list\n" +
+                COMMAND_ADD_EVENT + " {Name of event} /at {date or time of event} : Adds a new undone event to the list\n" +
                 "GOT IT????\n"
         );
     }
