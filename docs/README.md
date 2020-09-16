@@ -1,13 +1,14 @@
 # User Guide
+duke is a chat bot that keep tracks of your tasks.
+It uses a command line interface. 
 
 ## Features 
-
-
-
-
-
-
-
+List out tasks : list
+Add a to-do : todo
+Add a event : event
+Add a deadline : deadline
+Mark a task as done : done
+exit : bye or exit
 
 ### Feature 1 
 Listing out recorded tasks:
@@ -74,16 +75,24 @@ added a deadline finish reading macbeth due NOW to the task list :)
 Marking a task as done:
 
 ## Usage
-done /number {task number}
-done /name {task name}
+done /number {task number} 
+or 
+done /name {task name} 
+done /number {task number} /undone 
+
 ### `Keyword` - Describe action
-task number : the task number on the list
-task name : the name of the task on the list
+task number : the task number on the list that is to be set to done
+task name : the name of the task on the list that is to be set to done
+
+(optional input) undone : if this field is given, duke will instead set the
+given task to undone. 
 
 Example of usage: 
 done /number 3
 done /name read book
+done /name read book /undone
 
 Expected outcome:
 deadline finish reading macbeth due NOW is marked as done! :)
 todo read book is marked as done! :)
+todo read book is mark as undone. :(
