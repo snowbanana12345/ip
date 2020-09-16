@@ -202,7 +202,7 @@ public class Duke {
             throw new BadInputException("You either did not provide a number or an astronomical number");
         }
         catch (NumberFormatException e){
-            throw new BadInputException("The task must be specificed by it's number!");
+            throw new BadInputException("The task must be specified by it's number!");
         }
     }
 
