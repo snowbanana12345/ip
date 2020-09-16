@@ -1,10 +1,15 @@
 package duke_command;
 import java.util.Hashtable;
 
-
-public abstract class dukeCommandManager {
-    static Hashtable<String,Command> commandTable = new Hashtable<>();
-    static {
+/***
+ * This purpose of this class is to avoid magic strings
+ *
+ */
+public class DukeCommandManager extends CommandManager{
+    private final Hashtable<String,Command> commandTable;
+    private final Hashtable<Command, String> userCommandTable;
+    public DukeCommandManager(){
+        this.commandTable = new Hashtable<>();
         commandTable.put("bye",Command.COMMAND_EXIT);
         commandTable.put("list", Command.COMMAND_LIST_STORED_TASKS);
         commandTable.put("deadline",Command.COMMAND_ADD_DEADLINE);
@@ -12,9 +17,7 @@ public abstract class dukeCommandManager {
         commandTable.put("event", Command.COMMAND_ADD_EVENT);
         commandTable.put("done",Command.COMMAND_SET_TASK_DONE);
         commandTable.put("instructions", Command.COMMAND_INSTRUCTIONS);
-    }
-    static Hashtable<Command,String> userCommandTable = new Hashtable<>();
-    static {
+        this.userCommandTable = new Hashtable<>();
         userCommandTable.put(Command.COMMAND_EXIT,"bye");
         userCommandTable.put(Command.COMMAND_LIST_STORED_TASKS,"list");
         userCommandTable.put(Command.COMMAND_ADD_DEADLINE,"deadline");
@@ -24,15 +27,15 @@ public abstract class dukeCommandManager {
         userCommandTable.put(Command.COMMAND_INSTRUCTIONS,"instructions");
     }
 
-    public static Command getCommand(String userCommand){
+    public Command getCommand(String userCommand){
         return commandTable.get(userCommand);
     }
 
-    public static boolean isValidCommand(String userCommand){
+    public boolean isValidCommand(String userCommand){
         return commandTable.containsKey(userCommand);
     }
 
-    public static String getUserCommand(Command command){
+    public  String getUserCommand(Command command){
         return userCommandTable.get(command);
     }
 }
