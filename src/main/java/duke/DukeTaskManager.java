@@ -5,8 +5,9 @@ import task.Task;
 import task.ToDo;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class DukeTaskManager {
+public class DukeTaskManager extends TaskManager{
     private final ArrayList<Task> taskList;
     public DukeTaskManager(){
         this.taskList = new ArrayList<>();
@@ -31,7 +32,7 @@ public class DukeTaskManager {
         taskList.get(taskNumber).setDone(done);
     }
 
-    public ArrayList<Task> getTaskList(){
+    public List<Task> getTaskList(){
         return taskList;
     }
 }
