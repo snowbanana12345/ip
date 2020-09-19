@@ -8,6 +8,7 @@ Add a to-do : todo
 Add a event : event
 Add a deadline : deadline
 Mark a task as done : done
+Delete a task : delete
 Exit the programme : exit
 
 ### Feature 1 
@@ -76,23 +77,32 @@ Marking a task as done:
 
 ## Usage
 done /number {task number} 
-or 
-done /name {task name} 
-done /number {task number} /undone 
 
 ### `Keyword` - Describe action
 task number : the task number on the list that is to be set to done
-task name : the name of the task on the list that is to be set to done
 
-(optional input) undone : if this field is given, duke will instead set the
-given task to undone. 
 
 Example of usage: 
 done /number 3
-done /name read book
-done /name read book /undone
 
 Expected outcome:
 deadline finish reading macbeth due NOW is marked as done! :)
-todo read book is marked as done! :)
-todo read book is mark as undone. :(
+
+
+
+### Feature 6 
+Deleting a task fom the task list:
+
+## Usage
+done /number {task number} 
+
+### `Keyword` - Describe action
+task number : the task number on the list of the task that is to be deleted
+
+Example of usage:
+delete /number 2
+
+Expected outcome:
+Noted! i've removed this task:
+	[D][✗] mydeadline (by: NOW)
+	Now you have 4 tasks on your list!
