@@ -8,7 +8,7 @@ Add a to-do : todo
 Add a event : event
 Add a deadline : deadline
 Mark a task as done : done
-exit : bye or exit
+Exit the programme : exit
 
 ### Feature 1 
 Listing out recorded tasks:

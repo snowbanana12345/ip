@@ -11,4 +11,11 @@ abstract class MessageCreater {
     abstract public void addEvent(String name, String time);
     abstract public void addDeadLine(String name, String time);
     abstract public void listTasks(List<Task> taskList);
+    abstract public void markAsDone(String index);
+    abstract public void defaultMessage();
+    abstract public void describeException(Exception e);
+    public abstract void numberOfTasks(Integer numberOfTasks);
+
+    public abstract void startLoopMessage();
+    public abstract void endLoopMessage();
 }

@@ -8,7 +8,8 @@ public enum Command {
     COMMAND_ADD_DEADLINE("deadline", "adds a deadline"),
     COMMAND_ADD_EVENT("event", "adds a user event"),
     COMMAND_INSTRUCTIONS("instructions", "prints out the set of instructions for command"),
-    COMMAND_NULL("null", "does nothing");
+    COMMAND_NULL("null", "does nothing"),
+    COMMAND_DELETE("delete", "deletes an entry");
 
     private final String userInput;
     private final String commandFunction;

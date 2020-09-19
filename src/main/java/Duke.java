@@ -18,8 +18,7 @@ public class Duke {
         duke.start();
         while (duke.isActive()){
             userInput = in.nextLine();
-            duke.recieveUserInput(userInput);
-            duke.executeUserInput();
+            duke.receiveAndExecuteUserInput(userInput);
         }
     }
 }
