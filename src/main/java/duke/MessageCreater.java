@@ -18,4 +18,6 @@ abstract class MessageCreater {
 
     public abstract void startLoopMessage();
     public abstract void endLoopMessage();
+
+    public abstract void deleteTask(String taskDescription);
 }

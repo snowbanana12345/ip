@@ -14,4 +14,6 @@ abstract class TaskManager {
     abstract public void markAsDone(String taskNumber) throws NumberInputException, EmptyFieldException, BadInputException;
     public abstract List<Task> getTaskList();
     public abstract Integer getNumberOfTasks();
+    public abstract void deleteTask(String s);
+    public abstract String getTaskDescription(String s);
 }

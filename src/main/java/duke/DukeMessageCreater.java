@@ -55,6 +55,17 @@ public class DukeMessageCreater extends MessageCreater{
     public void endLoopMessage(){
         printHorizontalLine(horizontalLineLength);
     }
+
+    @Override
+    public void deleteTask(String taskDescription) {
+        printDeleteTask(taskDescription);
+    }
+
+    private void printDeleteTask(String taskDescription){
+        System.out.println("Noted! i've removed this task:");
+        System.out.println("\t" + taskDescription);
+    }
+
     public void numberOfTasks(Integer numberOfTasks){
         printNumberOfTasks(numberOfTasks);
     }

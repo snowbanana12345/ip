@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DukeTaskManager extends TaskManager{
+    private static final Integer INDEX_OFF_SET = 1;
     private final ArrayList<Task> taskList;
     public DukeTaskManager(){
         this.taskList = new ArrayList<>();
@@ -54,7 +55,7 @@ public class DukeTaskManager extends TaskManager{
             if (Integer.parseInt(taskNumber) < 0){
                 throw new BadInputException("Please input a valid task number");
             }
-            taskList.get(Integer.parseInt(taskNumber) - 1).setDone(true);
+            taskList.get(Integer.parseInt(taskNumber) - INDEX_OFF_SET).setDone(true);
         }
         catch (NumberFormatException e){
             throw new NumberInputException("The task number provided is not a number! : " + taskNumber);
@@ -65,11 +66,15 @@ public class DukeTaskManager extends TaskManager{
     }
 
     public void deleteTask(String taskNumber){
-        taskList.remove(Integer.parseInt(taskNumber));
+        taskList.remove(Integer.parseInt(taskNumber) - INDEX_OFF_SET);
     }
 
     public Integer getNumberOfTasks(){
         return taskList.size();
+    }
+
+    public String getTaskDescription(String taskNumber){
+        return taskList.get(Integer.parseInt(taskNumber) - INDEX_OFF_SET).toString();
     }
 
     public List<Task> getTaskList(){
