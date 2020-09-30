@@ -12,14 +12,16 @@ public class DukeManager {
     private final CommandManager commandManager;
     private final FieldManager fieldManager;
     private final MessageCreater messageCreater;
+    private final TaskSaver taskSaver;
     private boolean active;
     private Hashtable<DukeField, String> inputFields;
     public DukeManager(CommandManager commandManager, FieldManager fieldManager
-            , TaskManager taskManager, MessageCreater messageCreater){
+            , TaskManager taskManager, MessageCreater messageCreater, TaskSaver taskSaver){
         this.taskManager = taskManager;
         this.commandManager = commandManager;
         this.fieldManager = fieldManager;
         this.messageCreater = messageCreater;
+        this.taskSaver = taskSaver;
         this.active = false;
         this.inputFields = new Hashtable<>();
     }
@@ -147,6 +149,9 @@ public class DukeManager {
             case COMMAND_SET_TASK_DONE:
                 taskManager.markAsDone(inputFields.get(DukeField.INDEX));
                 messageCreater.markAsDone(inputFields.get(DukeField.INDEX));
+                break;
+            case COMMAND_SAVE:
+                taskSaver.save(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
                 break;
             default:
                 messageCreater.defaultMessage();

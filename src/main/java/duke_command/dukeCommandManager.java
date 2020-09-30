@@ -17,6 +17,7 @@ public class DukeCommandManager extends CommandManager{
     private static final String COMMAND_DONE = "done";
     private static final String COMMAND_INSTRUCTIONS = "help";
     private static final String COMMAND_DELETE = "delete";
+    private static final String COMMAND_SAVE = "save";
 
     private static final String ERROR_NO_SUCH_COMMAND = "There is no such command!";
 
@@ -33,7 +34,7 @@ public class DukeCommandManager extends CommandManager{
         commandTable.put(COMMAND_DONE,Command.COMMAND_SET_TASK_DONE);
         commandTable.put(COMMAND_INSTRUCTIONS, Command.COMMAND_INSTRUCTIONS);
         commandTable.put(COMMAND_DELETE, Command.COMMAND_DELETE);
-
+        commandTable.put(COMMAND_SAVE, Command.COMMAND_SAVE);
         this.userCommandTable = new Hashtable<>();
         for(Map.Entry<String, Command> entry : commandTable.entrySet()){
             userCommandTable.put(entry.getValue(), entry.getKey());

@@ -9,7 +9,8 @@ public enum Command {
     COMMAND_ADD_EVENT("event", "adds a user event"),
     COMMAND_INSTRUCTIONS("instructions", "prints out the set of instructions for command"),
     COMMAND_NULL("null", "does nothing"),
-    COMMAND_DELETE("delete", "deletes an entry");
+    COMMAND_DELETE("delete", "deletes an entry"),
+    COMMAND_SAVE("save","saves the task list");
 
     private final String userInput;
     private final String commandFunction;
