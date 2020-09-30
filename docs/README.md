@@ -106,3 +106,19 @@ Expected outcome:
 Noted! i've removed this task:
 	[D][✗] mydeadline (by: NOW)
 	Now you have 4 tasks on your list!
+todo read book is marked as done! :)
+todo read book is mark as undone. :(
+
+### Feature 6
+saving the task list
+
+## Usage 
+save /name {file name}
+
+### `Keyword` - Describe action
+name : the file name to be saved to
+
+Example of usage:
+save /name my first save
+
+Expected outcome:

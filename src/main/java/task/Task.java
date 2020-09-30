@@ -16,6 +16,10 @@ public class Task{
         this.done = isdone;
     }
 
+    public String getName(){
+        return this.task;
+    }
+
     public String toString(){
         return ((this.done) ? "[" + "\u2713"+"]" : "[" + "\u2717" + "]") + " " + this.task;
     }
