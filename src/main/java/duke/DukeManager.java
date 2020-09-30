@@ -16,7 +16,6 @@ public class DukeManager {
     private boolean active;
     private Hashtable<DukeField, String> inputFields;
     public DukeManager(CommandManager commandManager, FieldManager fieldManager
-            , TaskManager taskManager, MessageCreater messageCreater){
             , TaskManager taskManager, MessageCreater messageCreater, TaskSaver taskSaver){
         this.taskManager = taskManager;
         this.commandManager = commandManager;
