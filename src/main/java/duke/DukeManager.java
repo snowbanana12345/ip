@@ -13,15 +13,17 @@ public class DukeManager {
     private final FieldManager fieldManager;
     private final MessageCreater messageCreater;
     private final TaskSaver taskSaver;
+    private final InputParser inputParser;
     private boolean active;
     private Hashtable<DukeField, String> inputFields;
     public DukeManager(CommandManager commandManager, FieldManager fieldManager
-            , TaskManager taskManager, MessageCreater messageCreater, TaskSaver taskSaver){
+            , TaskManager taskManager, MessageCreater messageCreater, TaskSaver taskSaver, InputParser inputParser){
         this.taskManager = taskManager;
         this.commandManager = commandManager;
         this.fieldManager = fieldManager;
         this.messageCreater = messageCreater;
         this.taskSaver = taskSaver;
+        this.inputParser = inputParser;
         this.active = false;
         this.inputFields = new Hashtable<>();
     }
@@ -88,33 +90,7 @@ public class DukeManager {
      */
     public void recieveUserInput(String userInput)
             throws EmptyInputException, InvalidFieldException {
-        try {
-            String[] userInputs = userInput.split(" ");
-            inputFields.put(DukeField.COMMAND, userInputs[0]);
-            DukeField currentField = null;
-            StringBuilder currentInput = new StringBuilder();
-            for (String input : userInputs) {
-                Character c = input.charAt(0);
-                if (c.equals('/')) {
-                    if (!(currentField == null)) {
-                        inputFields.put(currentField, currentInput.toString());
-                    }
-                    currentField = fieldManager.getField(input.substring(1));
-                    currentInput = new StringBuilder();
-                } else {
-                    currentInput.append(input);
-                }
-            }
-            if (!(currentField == null)) {
-                inputFields.put(currentField, currentInput.toString());
-            }
-        }
-        catch (StringIndexOutOfBoundsException e){
-            throw new EmptyInputException("The input is empty!");
-        }
-        catch (InvalidFieldException e){
-            throw e;
-        }
+        this.inputParser.parseUserInput(userInput, inputFields, fieldManager);
     }
 
     /***
