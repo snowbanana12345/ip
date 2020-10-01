@@ -16,6 +16,7 @@ abstract class TaskManager {
     public abstract Integer getNumberOfTasks();
     public abstract void deleteTask(String s);
     public abstract String getTaskDescription(String s);
-
     public abstract List<Task> getFilteredTaskListByDateTime(String s) throws BadInputException;
+    public abstract void load(List<Task> taskList);
+
 }

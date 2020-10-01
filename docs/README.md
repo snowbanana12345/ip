@@ -123,6 +123,17 @@ save /name my first save
 
 Expected outcome:
 
+### Feature 7
+load a saved task list
+
+## Usage
+load /name {file name}
+
+### `Keyword` - Describe action
+name : the file name containing the task list to be loaded
+
+Example of usage:
+load /name my saved file
 
 ### feature 8
 listing the tasks by date
@@ -137,3 +148,4 @@ Example of usage:
 list-by-date /time 2020-10-09-1030
 
 Expected outcome:
+

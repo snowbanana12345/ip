@@ -1,14 +1,17 @@
 package duke;
+import duke_exception.BadInputException;
 import task.DeadLine;
 import task.Event;
 import task.Task;
 import task.ToDo;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class DukeTaskSaver extends TaskSaver{
     private static final String TODO_SYMBOL = "T";
@@ -18,7 +21,7 @@ public class DukeTaskSaver extends TaskSaver{
     private static final String DONE_SYMBOL = "D";
     private static final String NOT_DONE_SYMBOL = "N";
 
-    private static final String SEPERATOR_SYMBOL = "|";
+    private static final String SEPERATOR_SYMBOL = "&&%%&&";
 
     private static String root_directory = System.getProperty("user.home");
     private static String duke_folder_name =  root_directory + File.separator + "duke";
@@ -76,6 +79,47 @@ public class DukeTaskSaver extends TaskSaver{
         }
         catch (IOException e){
             System.out.println(e);
+        }
+    }
+    public List<Task> load(String fileName) throws BadInputException{
+        try {
+            File file = new File(default_file_path + File.separator + fileName + ".txt");
+            Scanner reader = new Scanner(file);
+            List<Task> taskList = new ArrayList<>();
+            String line;
+            String[] splitedLine;
+            ToDo todo;
+            Event event;
+            DeadLine deadline;
+            while (reader.hasNext()){
+                line = reader.nextLine();
+                splitedLine = line.split(SEPERATOR_SYMBOL);
+                if (splitedLine[1].equals(TODO_SYMBOL)){
+                    todo = new ToDo(splitedLine[3]);
+                    if (splitedLine[2].equals(DONE_SYMBOL)){
+                        todo.setDone(true);
+                    }
+                    taskList.add(todo);
+                }
+                if (splitedLine[1].equals(EVENT_SYMBOL)){
+                    event = new Event(splitedLine[3],splitedLine[4]);
+                    if (splitedLine[2].equals(DONE_SYMBOL)){
+                        event.setDone(true);
+                    }
+                    taskList.add(event);
+                }
+                if (splitedLine[1].equals(DEADLINE_SYMBOL)){
+                    deadline = new DeadLine(splitedLine[3],splitedLine[4]);
+                    if (splitedLine[2].equals(DONE_SYMBOL)){
+                        deadline.setDone(true);
+                    }
+                    taskList.add(deadline);
+                }
+            }
+            return taskList;
+        }
+        catch (FileNotFoundException e){
+            throw new BadInputException(fileName + " does not exist! Please enter a valid file name!");
         }
     }
 }

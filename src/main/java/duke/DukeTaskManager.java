@@ -90,5 +90,10 @@ public class DukeTaskManager extends TaskManager{
             }
         }
         return newTaskList;
+
+    public void load (List<Task> newTaskList){
+        this.taskList.clear();
+        this.taskList.addAll(newTaskList);
+
     }
 }
