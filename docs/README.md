@@ -150,3 +150,20 @@ list-by-date /time 2020-10-09-1030
 Expected outcome:
 1. [E][✗] eat book(at: October 20 1990 1159 PM)
 2. [E][✗] dump carrots into the ocean(at: October 20 1990 1159 PM)
+
+## Feature 9
+finding only the tasks that contains a certain name
+
+## Usage
+
+find /name {task name}
+
+### `Keyword` - Describe action
+task name : the task just has to contain the name to be displayed
+
+Example of usage:
+find /name dump
+
+Expected outcome:
+
+
