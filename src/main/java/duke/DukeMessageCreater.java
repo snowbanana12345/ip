@@ -56,6 +56,7 @@ public class DukeMessageCreater extends MessageCreater{
         printHorizontalLine(horizontalLineLength);
     }
 
+
     @Override
     public void deleteTask(String taskDescription) {
         printDeleteTask(taskDescription);

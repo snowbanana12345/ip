@@ -1,10 +1,8 @@
 package duke_command;
-import duke_command.Command;
-import duke_command.CommandManager;
 import duke_exception.InvalidCommandException;
 
 import java.util.Hashtable;
-import java.util.Map;
+
 
 /***
  * This purpose of this class is to avoid magic strings
@@ -21,7 +19,7 @@ public class DukeCommandManager extends CommandManager {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_SAVE = "save";
     private static final String COMMAND_LOAD = "load";
-
+    private static final String COMMAND_LIST_BY_DATE = "list-by-date";
     private static final String ERROR_NO_SUCH_COMMAND = "There is no such command!";
 
     private final Hashtable<String, Command> commandTable;
@@ -38,8 +36,8 @@ public class DukeCommandManager extends CommandManager {
         commandTable.put(COMMAND_DELETE, Command.COMMAND_DELETE);
         commandTable.put(COMMAND_SAVE, Command.COMMAND_SAVE);
         commandTable.put(COMMAND_LOAD, Command.COMMAND_LOAD);
-    }
-
+        commandTable.put(COMMAND_LIST_BY_DATE, Command.COMMAND_LIST_BY_DATE);
+        }
     public Command getCommand(String userCommand)
         throws InvalidCommandException{
         Command command = commandTable.get(userCommand);

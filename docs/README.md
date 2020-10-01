@@ -116,13 +116,14 @@ saving the task list
 save /name {file name}
 
 ### `Keyword` - Describe action
-name : the file name to be saved to
+file name : the file name to be saved to
 
 Example of usage:
 save /name my first save
 
 Expected outcome:
 
+<<<<<<< HEAD
 ### Feature 7
 load a saved task list
 
@@ -134,3 +135,19 @@ name : the file name containing the task list to be loaded
 
 Example of usage:
 load /name my saved file
+=======
+
+### feature 8
+listing the tasks by date
+
+## Usage 
+list-by-date /time {date time}
+
+### `Keyword` - Describe action
+date time : a date time in the valid format YYYY-MM-DD-TTTT
+
+Example of usage:
+list-by-date /time 2020-10-09-1030
+
+Expected outcome:Expected outcome:
+>>>>>>> heads/branch-level-8

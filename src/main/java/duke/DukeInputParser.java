@@ -9,7 +9,6 @@ import java.util.Hashtable;
 
 public class DukeInputParser extends InputParser{
     public DukeInputParser(){
-
     }
 
     public void parseUserInput(String userInput, Hashtable<DukeField, String> targetInputFields, FieldManager fieldManager)
@@ -23,7 +22,7 @@ public class DukeInputParser extends InputParser{
                 Character c = input.charAt(0);
                 if (c.equals('/')) {
                     if (!(currentField == null)) {
-                        targetInputFields.put(currentField, currentInput.toString().substring(1));
+                        targetInputFields.put(currentField, currentInput.substring(1));
                     }
                     currentField = fieldManager.getField(input.substring(1));
                     currentInput = new StringBuilder();
@@ -32,7 +31,7 @@ public class DukeInputParser extends InputParser{
                 }
             }
             if (!(currentField == null)) {
-                targetInputFields.put(currentField, currentInput.toString());
+                targetInputFields.put(currentField, currentInput.substring(1));
             }
         } catch (StringIndexOutOfBoundsException e) {
             throw new EmptyInputException("The input is empty!");

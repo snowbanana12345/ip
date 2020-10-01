@@ -1,10 +1,10 @@
 package task;
 
 public class Task{
-    private final String task;
+    private final String taskName;
     private boolean done;
     protected Task(String task){
-        this.task = task;
+        this.taskName = task;
         this.done = false;
     }
 
@@ -17,10 +17,10 @@ public class Task{
     }
 
     public String getName(){
-        return this.task;
+        return this.taskName;
     }
 
     public String toString(){
-        return ((this.done) ? "[" + "\u2713"+"]" : "[" + "\u2717" + "]") + " " + this.task;
+        return ((this.done) ? "[" + "\u2713"+"]" : "[" + "\u2717" + "]") + " " + this.taskName;
     }
 }
