@@ -20,11 +20,11 @@ public class DukeCommandManager extends CommandManager {
     private static final String COMMAND_INSTRUCTIONS = "help";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_SAVE = "save";
+    private static final String COMMAND_LOAD = "load";
 
     private static final String ERROR_NO_SUCH_COMMAND = "There is no such command!";
 
     private final Hashtable<String, Command> commandTable;
-    private final Hashtable<Command, String> userCommandTable;
 
     public DukeCommandManager(){
         this.commandTable = new Hashtable<>();
@@ -37,10 +37,7 @@ public class DukeCommandManager extends CommandManager {
         commandTable.put(COMMAND_INSTRUCTIONS, Command.COMMAND_INSTRUCTIONS);
         commandTable.put(COMMAND_DELETE, Command.COMMAND_DELETE);
         commandTable.put(COMMAND_SAVE, Command.COMMAND_SAVE);
-        this.userCommandTable = new Hashtable<>();
-        for(Map.Entry<String, Command> entry : commandTable.entrySet()){
-            userCommandTable.put(entry.getValue(), entry.getKey());
-        }
+        commandTable.put(COMMAND_LOAD, Command.COMMAND_LOAD);
     }
 
     public Command getCommand(String userCommand)
@@ -54,9 +51,5 @@ public class DukeCommandManager extends CommandManager {
 
     public boolean isValidCommand(String userCommand){
         return commandTable.containsKey(userCommand);
-    }
-
-    public  String getUserCommand(Command command){
-        return userCommandTable.get(command);
     }
 }

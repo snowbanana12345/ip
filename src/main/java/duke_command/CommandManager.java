@@ -16,11 +16,4 @@ public abstract class CommandManager {
      * @return true if the string from user command is in the list of commands in the CommandManager
      */
     public abstract boolean isValidCommand(String userCommand);
-
-    /***
-     * This allows command to be converted from the enum class command back to the string.
-     * @param command the enum class of the command
-     * @return the string version of the command
-     */
-    public abstract String getUserCommand(Command command);
 }
