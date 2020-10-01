@@ -33,7 +33,7 @@ public class DateTime {
     }
     public static boolean isSameDate(DateTime dt1, DateTime dt2){
         return (dt1.day == dt2.day) && (dt1.month == dt2.month)
-                && (dt1.year == dt2.year) && (dt1.time == dt2.time);
+                && (dt1.year == dt2.year);
     }
 
     private String giveTimeString(){

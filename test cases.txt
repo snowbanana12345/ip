@@ -1,0 +1,6 @@
+deadline /name frogs /time 2020-10-09-2000
+event /name happy /time 2020-09-30-2359
+todo /name sloppy /time 2020-09-30-2359
+event /name sad /name 2030-09-30-0800
+
+delete /number 3
