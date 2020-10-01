@@ -61,6 +61,13 @@ public class DukeMessageCreater extends MessageCreater{
         printHorizontalLine(horizontalLineLength);
     }
 
+    public void save(String fileName){
+        printSave(fileName);
+    }
+
+    public void load(String fileName){
+        printLoad(fileName);
+    }
 
     @Override
     public void deleteTask(String taskDescription) {
@@ -142,5 +149,13 @@ public class DukeMessageCreater extends MessageCreater{
 
     private void printTaskWithNameFilterMessage(String name) {
         System.out.println("Printing only tasks that contains: " + name);
+    }
+
+    private void printSave(String fileName) {
+        System.out.println("Current task list is saved as :" + fileName + "!");
+    }
+
+    private void printLoad(String fileName) {
+        System.out.println("Loading task list from file :" + fileName);
     }
 }

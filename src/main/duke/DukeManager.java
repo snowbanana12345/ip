@@ -134,10 +134,13 @@ public class DukeManager {
                 break;
             case COMMAND_SAVE:
                 taskSaver.save(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
+                messageCreater.save(inputFields.get(DukeField.NAME));
                 break;
             case COMMAND_FIND:
                 messageCreater.listTasksWithNameFilter(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
+                break;
             case COMMAND_LOAD:
+                taskManager.load(taskSaver.load(inputFields.get(DukeField.NAME)));
                 taskManager.load(taskSaver.load(inputFields.get(DukeField.NAME)));
                 break;
             case COMMAND_LIST_BY_DATE:

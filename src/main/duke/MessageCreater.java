@@ -21,4 +21,6 @@ abstract class MessageCreater {
 
     public abstract void deleteTask(String taskDescription);
     public abstract void listTasksWithNameFilter(List<Task> taskList, String s);
+
+    public abstract void save(String s);
 }

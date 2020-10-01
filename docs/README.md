@@ -9,11 +9,14 @@ Add a event : event
 Add a deadline : deadline
 Mark a task as done : done
 Delete a task : delete
+save the current task list to file : save
+load a saved file : load
+list tasks on a certain take : list-by-late
+find all task items containing a certain phrase : find
 Exit the programme : exit
 
 ### Feature 1 
 Listing out recorded tasks:
-
 
 ## Usage
 list
@@ -107,7 +110,7 @@ Noted! i've removed this task:
 	[D][✗] mydeadline (by: NOW)
 	Now you have 4 tasks on your list!
 
-### Feature 6
+### Feature 7
 saving the task list
 
 ## Usage 
@@ -120,9 +123,9 @@ Example of usage:
 save /name my first save
 
 Expected outcome:
+Current task list is saved as :my first save!
 
-
-### Feature 7
+### Feature 8
 load a saved task list
 
 ## Usage
@@ -134,7 +137,7 @@ name : the file name containing the task list to be loaded
 Example of usage:
 load /name my saved file
 
-### feature 8
+### feature 9
 listing the tasks by date
 
 ## Usage 
@@ -151,7 +154,7 @@ Expected outcome:
 1. [E][✗] eat book(at: October 20 1990 1159 PM)
 2. [E][✗] dump carrots into the ocean(at: October 20 1990 1159 PM)
 
-## Feature 9
+## Feature 10
 finding only the tasks that contains a certain name
 
 ## Usage
@@ -165,5 +168,16 @@ Example of usage:
 find /name dump
 
 Expected outcome:
+Printing only tasks that contains: dump
+3. [E][✗] dump carrots into the ocean (at: October 20 1990 1159 PM)
+4. [E][✓] dump some tentacle porn(at: September 9 2020 1000 AM)
+5. [T][✗] dump some random stuff
 
+## Feature 11
+exit the programme
 
+## Usage
+exit
+
+Excepted outcome:
+GoodBye, Hope to see you again
