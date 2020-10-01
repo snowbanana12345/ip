@@ -36,6 +36,11 @@ public class DukeMessageCreater extends MessageCreater{
         printTaskList(taskList);
     }
 
+    public void listTasksWithNameFilter(List<Task> taskList, String name){
+        printTaskWithNameFilterMessage(name);
+        printTaskListWithNameFilter(taskList, name);
+    }
+
     public void markAsDone(String index){
         printDoneMessage(index);
     }
@@ -74,6 +79,16 @@ public class DukeMessageCreater extends MessageCreater{
     private void printTaskList(List<Task> taskList) {
         for (int i = 0; i < taskList.size(); i++){
             System.out.println((i + 1) + ". " + taskList.get(i));
+        }
+    }
+
+    private void printTaskListWithNameFilter(List<Task> taskList, String name) {
+        Task task;
+        for (int i = 0; i < taskList.size(); i++){
+            task = taskList.get(i);
+            if (task.getName().contains(name)) {
+                System.out.println((i + 1) + ". " + task);
+            }
         }
     }
 
@@ -122,5 +137,9 @@ public class DukeMessageCreater extends MessageCreater{
 
     private void printNumberOfTasks(Integer numberOfTasks){
         System.out.println("\tNow you have " + numberOfTasks + " tasks on your list!");
+    }
+
+    private void printTaskWithNameFilterMessage(String name) {
+        System.out.println("Printing only tasks that contains: " + name);
     }
 }

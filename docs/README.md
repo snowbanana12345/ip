@@ -116,9 +116,25 @@ saving the task list
 save /name {file name}
 
 ### `Keyword` - Describe action
-name : the file name to be saved to
+file name : the file name to be saved to
 
 Example of usage:
 save /name my first save
 
 Expected outcome:
+
+## Feature 9
+finding only the tasks that contains a certain name
+
+## Usage
+
+find /name {task name}
+
+### `Keyword` - Describe action
+task name : the task just has to contain the name to be displayed
+
+Example of usage:
+find /name dump
+
+Expected outcome:
+

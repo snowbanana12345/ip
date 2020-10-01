@@ -157,6 +157,9 @@ public class DukeManager {
             case COMMAND_SAVE:
                 taskSaver.save(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
                 break;
+            case COMMAND_FIND:
+                messageCreater.listTasksWithNameFilter(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
+                break;
             default:
                 messageCreater.defaultMessage();
                 break;
