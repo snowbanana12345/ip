@@ -41,10 +41,10 @@ public class Event extends Task implements Dateable{
     @Override
     public String toString(){
         if (hasValidDateTime){
-            return "[E]" + super.toString() + "(at: " + this.dateTime + ")";
+            return "[E]" + super.toString() + " (at: " + this.dateTime + ")";
         }
         else {
-            return "[E]" + super.toString() + "(at: " + this.at + ")";
+            return "[E]" + super.toString() + " (at: " + this.at + ")";
         }
     }
 }

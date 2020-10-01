@@ -94,7 +94,7 @@ deadline finish reading macbeth due NOW is marked as done! :)
 Deleting a task fom the task list:
 
 ## Usage
-done /number {task number} 
+delete /number {task number} 
 
 ### `Keyword` - Describe action
 task number : the task number on the list of the task that is to be deleted
@@ -106,8 +106,6 @@ Expected outcome:
 Noted! i've removed this task:
 	[D][✗] mydeadline (by: NOW)
 	Now you have 4 tasks on your list!
-todo read book is marked as done! :)
-todo read book is mark as undone. :(
 
 ### Feature 6
 saving the task list
@@ -123,7 +121,7 @@ save /name my first save
 
 Expected outcome:
 
-<<<<<<< HEAD
+
 ### Feature 7
 load a saved task list
 
@@ -135,7 +133,6 @@ name : the file name containing the task list to be loaded
 
 Example of usage:
 load /name my saved file
-=======
 
 ### feature 8
 listing the tasks by date
@@ -145,9 +142,11 @@ list-by-date /time {date time}
 
 ### `Keyword` - Describe action
 date time : a date time in the valid format YYYY-MM-DD-TTTT
+The time input must be given, although any time will work.
 
 Example of usage:
 list-by-date /time 2020-10-09-1030
 
-Expected outcome:Expected outcome:
->>>>>>> heads/branch-level-8
+Expected outcome:
+1. [E][✗] eat book(at: October 20 1990 1159 PM)
+2. [E][✗] dump carrots into the ocean(at: October 20 1990 1159 PM)

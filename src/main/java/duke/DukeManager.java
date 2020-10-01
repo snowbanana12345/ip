@@ -129,8 +129,8 @@ public class DukeManager {
                 break;
             case COMMAND_DELETE:
                 messageCreater.deleteTask(taskManager.getTaskDescription(inputFields.get(DukeField.INDEX)));
-                messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
                 taskManager.deleteTask(inputFields.get(DukeField.INDEX));
+                messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
             case COMMAND_SAVE:
                 taskSaver.save(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
                 break;
