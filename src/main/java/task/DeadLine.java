@@ -2,7 +2,7 @@ package task;
 
 import duke_exception.BadInputException;
 
-public class DeadLine extends Task {
+public class DeadLine extends Task implements Dateable{
     private final String deadline;
     private boolean hasValidDateTime;
     private DateTime dateTime;
@@ -37,7 +37,7 @@ public class DeadLine extends Task {
             throw new BadInputException("The date time entered has a problem:" + e.getMessage());
         }
     }
-    
+
     @Override
     public String toString(){
         if (hasValidDateTime){

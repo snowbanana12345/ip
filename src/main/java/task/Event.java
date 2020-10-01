@@ -2,7 +2,7 @@ package task;
 
 import duke_exception.BadInputException;
 
-public class Event extends Task {
+public class Event extends Task implements Dateable{
     private final String at;
     private boolean hasValidDateTime;
     private DateTime dateTime;

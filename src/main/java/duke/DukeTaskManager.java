@@ -2,10 +2,7 @@ package duke;
 import duke_exception.BadInputException;
 import duke_exception.EmptyFieldException;
 import duke_exception.NumberInputException;
-import task.DeadLine;
-import task.Event;
-import task.Task;
-import task.ToDo;
+import task.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,5 +76,19 @@ public class DukeTaskManager extends TaskManager{
 
     public List<Task> getTaskList(){
         return taskList;
+    }
+
+    public List<Task> getFilteredTaskListByDateTime(String dateTime) throws BadInputException {
+        List<Task> newTaskList = new ArrayList<>();
+        Dateable dateable;
+        for (Task task : taskList){
+            if (task instanceof Dateable){
+                dateable = (Dateable) task;
+                if (dateable.isOnDate(dateTime)){
+                    newTaskList.add(task);
+                }
+            }
+        }
+        return newTaskList;
     }
 }
