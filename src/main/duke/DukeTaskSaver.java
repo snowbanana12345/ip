@@ -116,6 +116,7 @@ public class DukeTaskSaver extends TaskSaver{
                     taskList.add(deadline);
                 }
             }
+            System.out.println("File :" + fileName + " is loaded successfully!");
             return taskList;
         }
         catch (FileNotFoundException e){
