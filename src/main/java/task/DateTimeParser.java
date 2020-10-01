@@ -4,7 +4,7 @@ import duke_exception.BadInputException;
 
 abstract class DateTimeParser {
     private static final char SEPERATOR = '-';
-    public static DateTime parseDateTIme(String dateTime) throws BadInputException{
+    public static DateTime parseDateTime(String dateTime) throws BadInputException{
         if (!(isValidDateTime(dateTime))){
             throw new BadInputException("The format of the date time is wrong!");
         }
