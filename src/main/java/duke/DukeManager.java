@@ -30,6 +30,7 @@ public class DukeManager {
         activate();
         messageCreater.startLoopMessage();
         messageCreater.greet();
+        this.taskSaver.init();
         messageCreater.endLoopMessage();
     }
 

@@ -1,4 +1,6 @@
 package duke_command;
+import duke_command.Command;
+import duke_command.CommandManager;
 import duke_exception.InvalidCommandException;
 
 import java.util.Hashtable;
@@ -8,7 +10,7 @@ import java.util.Map;
  * This purpose of this class is to avoid magic strings
  *
  */
-public class DukeCommandManager extends CommandManager{
+public class DukeCommandManager extends CommandManager {
     private static final String COMMAND_EXIT = "exit";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_DEADLINE = "deadline";
@@ -21,7 +23,7 @@ public class DukeCommandManager extends CommandManager{
 
     private static final String ERROR_NO_SUCH_COMMAND = "There is no such command!";
 
-    private final Hashtable<String,Command> commandTable;
+    private final Hashtable<String, Command> commandTable;
     private final Hashtable<Command, String> userCommandTable;
 
     public DukeCommandManager(){

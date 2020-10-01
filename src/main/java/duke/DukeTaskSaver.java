@@ -26,11 +26,15 @@ public class DukeTaskSaver extends TaskSaver{
     private String filePath;
     public DukeTaskSaver(){
         this.filePath = default_file_path;
+    }
+
+    public void init(){
         File dir1 = new File(duke_folder_name);
         dir1.mkdir();
         File dir = new File(default_file_path);
         dir.mkdir();
     }
+
     public void save(List<Task> tasks, String fileName) {
         try {
             File file = new File(default_file_path + File.separator + fileName + ".txt");
