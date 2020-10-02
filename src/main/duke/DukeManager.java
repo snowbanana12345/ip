@@ -7,6 +7,10 @@ import main.exception.*;
 
 import java.util.Hashtable;
 
+/***
+ * This classes manages all of the smaller classes such as deciding when to call each of their functions
+ * and pass data from each class to the other
+ */
 public class DukeManager {
     private final TaskManager taskManager;
     private final CommandManager commandManager;
@@ -28,6 +32,9 @@ public class DukeManager {
         this.inputFields = new Hashtable<>();
     }
 
+    /***
+     * This function is called when duke is first turned on
+     */
     public void start(){
         activate();
         messageCreater.startLoopMessage();
@@ -36,6 +43,9 @@ public class DukeManager {
         messageCreater.endLoopMessage();
     }
 
+    /***
+     * this function is called when an exit command is given to duke
+     */
     private void stop(){
         deactivate();
         messageCreater.startLoopMessage();
@@ -43,13 +53,17 @@ public class DukeManager {
         messageCreater.endLoopMessage();
     }
 
+    /***
+     * Check if duke has been stopped
+     * @return
+     */
     public boolean isActive(){
         return this.active;
     }
 
     /***
      * Main control function for duke
-     * This function also does all the error handling
+     * This function does all the error handling
      * @param userInput the user input
      */
     public void receiveAndExecuteUserInput(String userInput){
@@ -64,12 +78,15 @@ public class DukeManager {
         }
     }
 
+    /***
+     * Clear the user input at the end of each execution of a userInput
+     */
     private void clearUserInput(){
         inputFields = new Hashtable<>();
     }
 
     /***
-     *
+     * takes in and handles the user input
      * @param userInput : the user input
      *  The user input is assumed to be in the format
      *  {user command} /{field 1} {input 1} /{field 2} {input 2} and so on
@@ -80,7 +97,7 @@ public class DukeManager {
     }
 
     /***
-     * Main place where the functions are done
+     * Once the user input is received, this function then executes the input.
      */
     public void executeUserInput()
             throws InvalidCommandException, NumberInputException, EmptyFieldException, BadInputException {
