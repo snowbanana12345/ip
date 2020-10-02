@@ -1,5 +1,5 @@
 package main.task;
-import main.duke_exception.BadInputException;
+import main.exception.BadInputException;
 
 public interface Dateable {
     boolean isOnDate(String dateTime) throws BadInputException;

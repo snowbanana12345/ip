@@ -1,4 +1,4 @@
-package main.duke_exception;
+package main.exception;
 
 public class InvalidCommandException extends Exception{
     public InvalidCommandException(String s) {

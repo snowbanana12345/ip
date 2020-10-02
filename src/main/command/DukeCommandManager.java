@@ -1,5 +1,5 @@
-package main.duke_command;
-import main.duke_exception.InvalidCommandException;
+package main.command;
+import main.exception.InvalidCommandException;
 
 import java.util.Hashtable;
 
@@ -50,9 +50,5 @@ public class DukeCommandManager extends CommandManager {
             throw new InvalidCommandException(ERROR_NO_SUCH_COMMAND);
         }
         return command;
-    }
-
-    public boolean isValidCommand(String userCommand){
-        return commandTable.containsKey(userCommand);
     }
 }

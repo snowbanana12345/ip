@@ -1,9 +1,9 @@
 package main.duke;
 
-import main.duke_command.DukeField;
-import main.duke_command.FieldManager;
-import main.duke_exception.EmptyInputException;
-import main.duke_exception.InvalidFieldException;
+import main.command.DukeField;
+import main.command.FieldManager;
+import main.exception.EmptyInputException;
+import main.exception.InvalidFieldException;
 
 import java.util.Hashtable;
 

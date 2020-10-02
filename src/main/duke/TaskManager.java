@@ -1,8 +1,8 @@
 package main.duke;
 
-import main.duke_exception.BadInputException;
-import main.duke_exception.EmptyFieldException;
-import main.duke_exception.NumberInputException;
+import main.exception.BadInputException;
+import main.exception.EmptyFieldException;
+import main.exception.NumberInputException;
 import main.task.Task;
 
 import java.util.List;

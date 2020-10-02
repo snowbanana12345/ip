@@ -1,4 +1,4 @@
-package main.duke_exception;
+package main.exception;
 
 public class EmptyFieldException extends Exception{
     public EmptyFieldException(String message){

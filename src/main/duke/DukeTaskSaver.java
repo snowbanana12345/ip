@@ -1,5 +1,5 @@
 package main.duke;
-import main.duke_exception.BadInputException;
+import main.exception.BadInputException;
 import main.task.DeadLine;
 import main.task.Event;
 import main.task.Task;
@@ -45,34 +45,17 @@ public class DukeTaskSaver extends TaskSaver{
             FileWriter writer = new FileWriter( default_file_path + File.separator + fileName + ".txt");
 
             Task task;
-            ToDo todo;
-            Event event;
-            DeadLine deadline;
             for (int i = 0; i < tasks.size(); i++){
                 task = tasks.get(i);
                 writer.write((i+1) + SEPERATOR_SYMBOL);
                 if (task instanceof ToDo){
-                    todo = (ToDo) task;
-                    writer.write(TODO_SYMBOL + SEPERATOR_SYMBOL);
-                    writer.write((todo.isDone() ? DONE_SYMBOL : NOT_DONE_SYMBOL) + SEPERATOR_SYMBOL);
-                    writer.write(todo.getName());
-                    writer.write("\n");
+                    writeTodoToFile(writer, (ToDo) task);
                 }
                 if (task instanceof Event){
-                    event = (Event) task;
-                    writer.write(EVENT_SYMBOL + SEPERATOR_SYMBOL);
-                    writer.write((event.isDone() ? DONE_SYMBOL : NOT_DONE_SYMBOL) + SEPERATOR_SYMBOL);
-                    writer.write(event.getName() + SEPERATOR_SYMBOL);
-                    writer.write(event.getAt());
-                    writer.write("\n");
+                    writeEventToFile(writer, (Event) task);
                 }
                 if (task instanceof DeadLine) {
-                    deadline = (DeadLine) task;
-                    writer.write(DEADLINE_SYMBOL + SEPERATOR_SYMBOL);
-                    writer.write((deadline.isDone() ? DONE_SYMBOL : NOT_DONE_SYMBOL) + SEPERATOR_SYMBOL);
-                    writer.write(deadline.getName() + SEPERATOR_SYMBOL);
-                    writer.write(deadline.getBy());
-                    writer.write("\n");
+                    writeDeadLineToFile(writer, (DeadLine) task);
                 }
             }
             writer.close();
@@ -81,6 +64,36 @@ public class DukeTaskSaver extends TaskSaver{
             System.out.println(e);
         }
     }
+
+    private void writeDeadLineToFile(FileWriter writer, DeadLine task) throws IOException {
+        DeadLine deadline;
+        deadline = task;
+        writer.write(DEADLINE_SYMBOL + SEPERATOR_SYMBOL);
+        writer.write((deadline.isDone() ? DONE_SYMBOL : NOT_DONE_SYMBOL) + SEPERATOR_SYMBOL);
+        writer.write(deadline.getName() + SEPERATOR_SYMBOL);
+        writer.write(deadline.getBy());
+        writer.write("\n");
+    }
+
+    private void writeEventToFile(FileWriter writer, Event task) throws IOException {
+        Event event;
+        event = task;
+        writer.write(EVENT_SYMBOL + SEPERATOR_SYMBOL);
+        writer.write((event.isDone() ? DONE_SYMBOL : NOT_DONE_SYMBOL) + SEPERATOR_SYMBOL);
+        writer.write(event.getName() + SEPERATOR_SYMBOL);
+        writer.write(event.getAt());
+        writer.write("\n");
+    }
+
+    private void writeTodoToFile(FileWriter writer, ToDo task) throws IOException {
+        ToDo todo;
+        todo = task;
+        writer.write(TODO_SYMBOL + SEPERATOR_SYMBOL);
+        writer.write((todo.isDone() ? DONE_SYMBOL : NOT_DONE_SYMBOL) + SEPERATOR_SYMBOL);
+        writer.write(todo.getName());
+        writer.write("\n");
+    }
+
     public List<Task> load(String fileName) throws BadInputException{
         try {
             File file = new File(default_file_path + File.separator + fileName + ".txt");

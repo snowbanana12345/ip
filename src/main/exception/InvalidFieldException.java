@@ -1,4 +1,4 @@
-package main.duke_exception;
+package main.exception;
 
 public class InvalidFieldException extends Exception{
     public InvalidFieldException(String message){

@@ -1,4 +1,4 @@
-package main.duke_exception;
+package main.exception;
 
 public class EmptyInputException extends Exception{
     public EmptyInputException(String s) {

@@ -3,7 +3,7 @@ package main.task;
 import java.util.Hashtable;
 
 public class DateTime {
-    private static Hashtable<Integer,String> monthTable;
+    private static final Hashtable<Integer,String> monthTable;
     static {
         monthTable = new Hashtable<>();
         monthTable.put(1, "January");
@@ -19,7 +19,6 @@ public class DateTime {
         monthTable.put(11, "November");
         monthTable.put(12, "December");
     }
-
 
     private final int day;
     private final int year;
@@ -39,7 +38,7 @@ public class DateTime {
     private String giveTimeString(){
         Integer clockTime = this.time % 1200;
         String timeString = clockTime.toString();
-        if (clockTime < 1000){
+        if (clockTime < 1000 && clockTime >= 100){
             timeString = "0" + timeString;
         }
         else if (clockTime < 100){

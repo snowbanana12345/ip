@@ -1,4 +1,4 @@
-package main.duke_command;
+package main.command;
 
 public enum DukeField {
     COMMAND,

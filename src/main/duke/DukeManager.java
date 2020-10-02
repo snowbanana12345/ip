@@ -1,9 +1,9 @@
 package main.duke;
-import main.duke_command.Command;
-import main.duke_command.CommandManager;
-import main.duke_command.FieldManager;
-import main.duke_command.DukeField;
-import main.duke_exception.*;
+import main.command.Command;
+import main.command.CommandManager;
+import main.command.FieldManager;
+import main.command.DukeField;
+import main.exception.*;
 
 import java.util.Hashtable;
 
@@ -32,7 +32,7 @@ public class DukeManager {
         activate();
         messageCreater.startLoopMessage();
         messageCreater.greet();
-        this.taskSaver.init();
+        taskSaver.init();
         messageCreater.endLoopMessage();
     }
 
@@ -58,22 +58,8 @@ public class DukeManager {
             executeUserInput();
             clearUserInput();
         }
-        catch (EmptyInputException e){
-            messageCreater.describeException(e);
-        }
-        catch (InvalidCommandException e){
-            messageCreater.describeException(e);
-        }
-        catch (NumberInputException e){
-            messageCreater.describeException(e);
-        }
-        catch (InvalidFieldException e){
-            messageCreater.describeException(e);
-        }
-        catch (EmptyFieldException e){
-            messageCreater.describeException(e);
-        }
-        catch (BadInputException e){
+        catch (EmptyInputException | InvalidCommandException | NumberInputException
+                | InvalidFieldException | EmptyFieldException | BadInputException e){
             messageCreater.describeException(e);
         }
     }
@@ -98,73 +84,61 @@ public class DukeManager {
      */
     public void executeUserInput()
             throws InvalidCommandException, NumberInputException, EmptyFieldException, BadInputException {
-        try {
-            messageCreater.startLoopMessage();
-            Command userCommand = commandManager.getCommand(inputFields.get(DukeField.COMMAND));
-            switch (userCommand) {
-            case COMMAND_EXIT:
-                stop();
-                break;
-            case COMMAND_ADD_DEADLINE:
-                taskManager.addDeadLine(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
-                messageCreater.addDeadLine(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
-                messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
-                break;
-            case COMMAND_ADD_TODO:
-                taskManager.addToDo(inputFields.get(DukeField.NAME));
-                messageCreater.addTodo(inputFields.get(DukeField.NAME));
-                messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
-                break;
-            case COMMAND_ADD_EVENT:
-                taskManager.addEvent(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
-                messageCreater.addEvent(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
-                messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
-                break;
-            case COMMAND_LIST_STORED_TASKS:
-                messageCreater.listTasks(taskManager.getTaskList());
-                break;
-            case COMMAND_SET_TASK_DONE:
-                taskManager.markAsDone(inputFields.get(DukeField.INDEX));
-                messageCreater.markAsDone(inputFields.get(DukeField.INDEX));
-                break;
-            case COMMAND_DELETE:
-                messageCreater.deleteTask(taskManager.getTaskDescription(inputFields.get(DukeField.INDEX)));
-                taskManager.deleteTask(inputFields.get(DukeField.INDEX));
-                messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
-                break;
-            case COMMAND_SAVE:
-                taskSaver.save(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
-                messageCreater.save(inputFields.get(DukeField.NAME));
-                break;
-            case COMMAND_FIND:
-                messageCreater.listTasksWithNameFilter(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
-                break;
-            case COMMAND_LOAD:
-                messageCreater.load(inputFields.get(DukeField.NAME));
-                taskManager.load(taskSaver.load(inputFields.get(DukeField.NAME)));
-                break;
-            case COMMAND_LIST_BY_DATE:
-                messageCreater.listTasks(taskManager.getFilteredTaskListByDateTime(inputFields.get(DukeField.TIME)));
-                break;
-            default:
-                messageCreater.defaultMessage();
-                break;
-            }
-            messageCreater.endLoopMessage();
+
+        messageCreater.startLoopMessage();
+        Command userCommand = commandManager.getCommand(inputFields.get(DukeField.COMMAND));
+        switch (userCommand) {
+        case COMMAND_EXIT:
+            stop();
+            break;
+        case COMMAND_ADD_DEADLINE:
+            taskManager.addDeadLine(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
+            messageCreater.addDeadLine(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
+            messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
+            break;
+        case COMMAND_ADD_TODO:
+            taskManager.addToDo(inputFields.get(DukeField.NAME));
+            messageCreater.addTodo(inputFields.get(DukeField.NAME));
+            messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
+            break;
+        case COMMAND_ADD_EVENT:
+            taskManager.addEvent(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
+            messageCreater.addEvent(inputFields.get(DukeField.NAME), inputFields.get(DukeField.TIME));
+            messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
+            break;
+        case COMMAND_LIST_STORED_TASKS:
+            messageCreater.listTasks(taskManager.getTaskList());
+            break;
+        case COMMAND_SET_TASK_DONE:
+            taskManager.markAsDone(inputFields.get(DukeField.INDEX));
+            messageCreater.markAsDone(inputFields.get(DukeField.INDEX));
+            break;
+        case COMMAND_DELETE:
+            messageCreater.deleteTask(taskManager.getTaskDescription(inputFields.get(DukeField.INDEX)));
+            taskManager.deleteTask(inputFields.get(DukeField.INDEX));
+            messageCreater.numberOfTasks(taskManager.getNumberOfTasks());
+            break;
+        case COMMAND_SAVE:
+            taskSaver.save(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
+            messageCreater.save(inputFields.get(DukeField.NAME));
+            break;
+        case COMMAND_FIND:
+            messageCreater.listTasksWithNameFilter(taskManager.getTaskList(), inputFields.get(DukeField.NAME));
+            break;
+        case COMMAND_LOAD:
+            messageCreater.load(inputFields.get(DukeField.NAME));
+            taskManager.load(taskSaver.load(inputFields.get(DukeField.NAME)));
+            break;
+        case COMMAND_LIST_BY_DATE:
+            messageCreater.listTasks(taskManager.getFilteredTaskListByDateTime(inputFields.get(DukeField.TIME)));
+            break;
+        default:
+            messageCreater.defaultMessage();
+            break;
         }
-        catch (InvalidCommandException e){
-            throw e;
-        }
-        catch (NumberInputException e){
-            throw e;
-        }
-        catch (EmptyFieldException e){
-            throw e;
-        }
-        catch (BadInputException e){
-            throw e;
-        }
+        messageCreater.endLoopMessage();
     }
+
 
     // #### --------- Lower level implementations ----------- ####
     private void activate() {

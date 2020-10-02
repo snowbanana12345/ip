@@ -1,8 +1,8 @@
 package main;
 
 import main.duke.*;
-import main.duke_command.DukeCommandManager;
-import main.duke_command.DukeFieldManager;
+import main.command.DukeCommandManager;
+import main.command.DukeFieldManager;
 
 import java.util.Scanner;
 

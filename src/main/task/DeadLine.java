@@ -1,6 +1,6 @@
 package main.task;
 
-import main.duke_exception.BadInputException;
+import main.exception.BadInputException;
 
 public class DeadLine extends Task implements Dateable{
     private final String deadline;

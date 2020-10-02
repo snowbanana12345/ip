@@ -1,6 +1,6 @@
 package main.duke;
 
-import main.duke_exception.BadInputException;
+import main.exception.BadInputException;
 import main.task.Task;
 
 import java.util.List;
