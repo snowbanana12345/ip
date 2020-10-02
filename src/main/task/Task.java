@@ -1,8 +1,14 @@
 package main.task;
 
-public class Task{
+
+/***
+ * Task class,
+ * keeps track of it's description and done status
+ */
+abstract public class Task{
     private final String taskName;
     private boolean done;
+
     protected Task(String task){
         this.taskName = task;
         this.done = false;

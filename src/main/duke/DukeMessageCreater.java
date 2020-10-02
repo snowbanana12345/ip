@@ -128,7 +128,10 @@ public class DukeMessageCreater extends MessageCreater{
         printLoad(fileName);
     }
 
-    
+    /***
+     * Tells the user that a task has been successfully deleted
+     * @param taskDescription
+     */
     public void deleteTask(String taskDescription) {
         printDeleteTask(taskDescription);
     }
